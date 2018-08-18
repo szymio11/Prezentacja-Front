@@ -2,7 +2,6 @@
   <div  class="col-md-4 offset-md-4">
       <h3  class="text-cente p-3">Dodanie produktu </h3>
       <form [formGroup]="form" (ngSubmit)="addProduct()">
-          <pre>{{form.value | json}}</pre>
               <div class="form-group">
               <label for="name">Nazwa</label>
                       <input 
@@ -10,14 +9,19 @@
                               id="name" 
                               type="text" 
                               class="form-control">
-                       
+                <div class="alert alert-danger" *ngIf="name.touched&&name.invalid">      
+                <div *ngIf="name?.errors['required']">Nazwa jest wymagana</div>
+                </div>
               </div> 
               <div class="form-group">
                       <label>Opis</label>
                       <textarea formControlName="description" id="description" 
                       type="text" 
                       class="form-control" rows="3"></textarea>
-                    </div>
+                      <div class="alert alert-danger" *ngIf="description.touched&&description.invalid">      
+                        <div *ngIf="description?.errors['required']">Opis jest wymagany</div>
+                        </div>
+                </div>
            
               <div class="form-group">
                       <label for="category">Kategorie</label>
@@ -25,7 +29,10 @@
                      >
                      <option value=""></option>
                      <option *ngFor="let c of categories" value="{{c.id }}">{{ c.name }}</option>
-                    </select>  
+                    </select>
+                    <div class="alert alert-danger" *ngIf="category.touched&&category.invalid">      
+                        <div *ngIf="category?.errors['required']">Kategoria jest wymagana</div>
+                        </div> 
               </div>
               <div class="form-group">
                 <label>Cena</label>
@@ -34,7 +41,7 @@
                       class="form-control"
                       type="textarea" />
               </div>
-              <button type="submit" class="btn btn-primary" >Zapisz</button>
+              <button type="submit" [disabled]="form.invalid" class="btn btn-primary" >Zapisz</button>
               <button type="button" class="btn btn-danger ml-1" >Usuń </button>
           
       </form>

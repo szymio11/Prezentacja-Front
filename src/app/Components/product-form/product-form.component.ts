@@ -42,6 +42,13 @@ export class ProductFormComponent implements OnInit {
    resp=> console.log(this.form.value)
    )
  }
-
-
+ get name(){
+  return this.form.get('name');
+}
+get description(){
+  return this.form.get('description');
+}
+get category(){
+  return this.form.get('categoryId');
+}
 }
