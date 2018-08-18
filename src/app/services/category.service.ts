@@ -2,19 +2,21 @@ import { Category } from './../model/category';
 
 import { AppConfig } from './../../app.config';
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { tap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
 export class CategoryService {
  categoryList: any[];
-  constructor(private http: Http, private apiUrl: AppConfig ) { }
+  constructor(private http: HttpClient, private config: AppConfig ) { }
   
   
-  getCategory(){
-  //  return this.http.get(this.apiUrl+"recipe");
-    // this.http.get(this.apiUrl+"recipe").pipe(map((data : any[]) => {
-  //    return data as any[];
+  getCategories():Observable<Category[]>{
+    return this.http.get<Category[]>(this.config.apiUrl+'categories').pipe(
+      tap(category => console.log('fetched categories')),
+    );
   }
 
 }

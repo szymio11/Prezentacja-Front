@@ -10,7 +10,8 @@ import { NavComponent } from './Components/nav/nav.component';
 import { ListProductComponent } from './Components/list-product/list-product.component';
 import { HttpModule } from '@angular/http';
 import { AppConfig } from '../app.config';
-
+import { HttpClientModule } from '@angular/common/http'
+import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,8 +23,10 @@ import { AppConfig } from '../app.config';
   ],
   imports: [
     HttpModule,
-    
+    FormsModule,
+    HttpClientModule,
     BrowserModule,
+    ReactiveFormsModule,
     NgbModule.forRoot(),
     RouterModule.forRoot([
      { 

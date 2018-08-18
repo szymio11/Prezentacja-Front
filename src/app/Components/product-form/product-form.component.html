@@ -1,35 +1,35 @@
 <div class="row">
   <div  class="col-md-4 offset-md-4">
-      <h3  class="text-cente p-3">Dodanie przepisu </h3>
-      <form >
-         
+      <h3  class="text-cente p-3">Dodanie produktu </h3>
+      <form [formGroup]="form" (ngSubmit)="addProduct()">
+          <pre>{{form.value | json}}</pre>
               <div class="form-group">
-              <label for="name">Nazwa Przepisu</label>
+              <label for="name">Nazwa</label>
                       <input 
-                        
+                      formControlName="name"
                               id="name" 
                               type="text" 
                               class="form-control">
-                      <div class="alert alert-danger" >      
-                                    
-                      </div>
+                       
               </div> 
               <div class="form-group">
-                      <label>Składniki</label>
-                      <textarea id="description" 
+                      <label>Opis</label>
+                      <textarea formControlName="description" id="description" 
                       type="text" 
                       class="form-control" rows="3"></textarea>
                     </div>
            
               <div class="form-group">
-                      <label for="category">Ocena trudności</label>
-                      <select class="form-control" id="category" 
+                      <label for="category">Kategorie</label>
+                      <select formControlName="categoryId" class="form-control" id="category" 
                      >
+                     <option value=""></option>
+                     <option *ngFor="let c of categories" value="{{c.id }}">{{ c.name }}</option>
                     </select>  
               </div>
               <div class="form-group">
                 <label>Cena</label>
-                      <input id="price" name="price"
+                      <input formControlName="price" id="price" name="price"
                      
                       class="form-control"
                       type="textarea" />

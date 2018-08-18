@@ -1,10 +1,13 @@
+import { ProductUpdate } from './../../model/product';
+import { Category } from './../../model/category';
 import { AppConfig } from './../../../app.config';
-import { Http } from '@angular/http';
 import { CategoryService } from './../../services/category.service';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { pipe } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ProductService } from '../../services/product.service';
+import { FormGroup, FormControl, Validators  } from '@angular/forms';
+import {  FormArray, FormBuilder,
+  ReactiveFormsModule  } from '@angular/forms';
+
 @Component({
   selector: 'app-product-form',
   templateUrl: './product-form.component.html',
@@ -12,12 +15,33 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 }) 
 
 export class ProductFormComponent implements OnInit {
-  categories;
-  constructor(private cateogryService: CategoryService, private http: Http,private url:AppConfig) { }
-
+  product: ProductUpdate;
+  categories: Category[];
+  constructor(private categoryService: CategoryService,private url:AppConfig, private productService: ProductService) { }
+  form = new FormGroup({
+    name: new FormControl('',
+      Validators.required
+    ),
+    description: new FormControl('',
+      Validators.required
+    ),
+    categoryId: new FormControl('',Validators.required),
+    price: new FormControl()
+  
+  });
   ngOnInit() {
-   this.http.get(this.url.apiUrl+'categories').subscribe(category=>{this.categories = category
-  console.log("Categories"+ this.categories)
-  })
+    this.getCategories();
   }
+  
+  getCategories(): void {
+    this.categoryService.getCategories()
+    .subscribe(categories => this.categories = categories);
+  }
+ addProduct(){
+   this.productService.addProduct(this.form.value).subscribe(
+   resp=> console.log(this.form.value)
+   )
+ }
+
+
 }
