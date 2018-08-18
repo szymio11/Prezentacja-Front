@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AppConfig } from '../../app.config';
-import { ProductUpdate } from '../model/product';
+import { ProductUpdate, Product } from '../model/product';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 const httpOptions = {
@@ -32,11 +32,18 @@ export class ProductService {
   };
 
   constructor(private http: HttpClient,private config: AppConfig) { }
+  
   addProduct (product: ProductUpdate): Observable<ProductUpdate> {
     return this.http.post<ProductUpdate>(this.config.apiUrl + 'product', product, httpOptions)
       .pipe(
       //  catchError(this.handleError('addProduct', product))
       );
+  }
+  getProducs (): Observable<Product[]> {
+    return this.http.get<Product[]>(this.config.apiUrl+'product')
+      .pipe(
+   
+           );
   }
 
 

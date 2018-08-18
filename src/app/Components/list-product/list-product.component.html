@@ -1,3 +1,24 @@
-<p>
-  list-product works!
-</p>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nazwa</th>
+      <th scope="col">Opis</th>
+      <th scope="col">Kategoria</th>
+      <th scope="col">Cena</th>
+      <th>Edit</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let p of products">
+      <td></td>
+      <td>{{p.name}}</td>
+      <td>{{ p.description}}</td>
+      <td>{{ p.category }}</td>
+      <td>{{ p.price }}</td>
+      <td>
+        <a [routerLink]="['/edit/',p.id]">Edit</a>
+      </td>
+    </tr>
+  </tbody>
+</table>

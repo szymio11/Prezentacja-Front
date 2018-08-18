@@ -17,8 +17,16 @@ import {  FormArray, FormBuilder,
 export class ProductFormComponent implements OnInit {
   product: ProductUpdate;
   categories: Category[];
-  constructor(private categoryService: CategoryService,private url:AppConfig, private productService: ProductService) { }
-  form = new FormGroup({
+  form;
+  constructor(private fb: FormBuilder,private categoryService: CategoryService,private url:AppConfig, private productService: ProductService) { 
+   this.form = fb.group({
+      name: ['',Validators.required],
+      description: ['',Validators.required],
+      categoryId:['',Validators.required],
+      price:[]
+    })
+  }
+  /* = new FormGroup({
     name: new FormControl('',
       Validators.required
     ),
@@ -28,7 +36,7 @@ export class ProductFormComponent implements OnInit {
     categoryId: new FormControl('',Validators.required),
     price: new FormControl()
   
-  });
+  })*/
   ngOnInit() {
     this.getCategories();
   }
