@@ -40,7 +40,11 @@ import { FormsModule, ReactiveFormsModule} from '@angular/forms';
      { 
       path: 'lista',
       component: ListProductComponent
-    }
+    },  
+    { 
+     path: ':id',
+     component: ProductFormComponent
+   }
     ])
   ],
   providers: [

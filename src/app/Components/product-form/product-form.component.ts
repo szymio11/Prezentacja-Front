@@ -1,12 +1,12 @@
-import { ProductUpdate } from './../../model/product';
+import { ProductUpdate, Product } from './../../model/product';
 import { Category } from './../../model/category';
-import { AppConfig } from './../../../app.config';
 import { CategoryService } from './../../services/category.service';
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../services/product.service';
-import { FormGroup, FormControl, Validators  } from '@angular/forms';
-import {  FormArray, FormBuilder,
-  ReactiveFormsModule  } from '@angular/forms';
+import {  Validators  } from '@angular/forms';
+import {  FormBuilder } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-product-form',
@@ -18,38 +18,39 @@ export class ProductFormComponent implements OnInit {
   product: ProductUpdate;
   categories: Category[];
   form;
-  constructor(private fb: FormBuilder,private categoryService: CategoryService,private url:AppConfig, private productService: ProductService) { 
+  id;
+
+  constructor(private router: Router,
+    private route: ActivatedRoute,
+    private fb: FormBuilder,private categoryService: CategoryService, private productService: ProductService) { 
    this.form = fb.group({
       name: ['',Validators.required],
       description: ['',Validators.required],
       categoryId:['',Validators.required],
       price:[]
     })
+    this.id = this.route.snapshot.paramMap.get('id');
+  if(this.id) {
+      this.productService.getByIdProduct(this.id).pipe(take(1)).subscribe(resp=> this.fillUpform(resp))
+    }
   }
-  /* = new FormGroup({
-    name: new FormControl('',
-      Validators.required
-    ),
-    description: new FormControl('',
-      Validators.required
-    ),
-    categoryId: new FormControl('',Validators.required),
-    price: new FormControl()
-  
-  })*/
+
   ngOnInit() {
+   
     this.getCategories();
   }
-  
+  setCategory():boolean{
+    if(this.id){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
   getCategories(): void {
     this.categoryService.getCategories()
     .subscribe(categories => this.categories = categories);
   }
- addProduct(){
-   this.productService.addProduct(this.form.value).subscribe(
-   resp=> console.log(this.form.value)
-   )
- }
  get name(){
   return this.form.get('name');
 }
@@ -59,4 +60,26 @@ get description(){
 get category(){
   return this.form.get('categoryId');
 }
+fillUpform(entity: Product){
+  this.form.get('name').setValue(entity.name);
+  this.form.get('description').setValue(entity.description);
+  this.form.get('categoryId').setValue(entity.category.id);
+  this.form.get('price').setValue(entity.price);
+  
+}
+//Save product
+saveProduct(){
+
+  if(this.id) this.productService.updateProduct(this.id,this.form.value).subscribe(resp=>{
+    console.log(resp);
+  });
+  else{
+  let isValid = this.productService.addProduct(this.form.value).subscribe(resp => {   
+    });;
+    console.log(this.form.value)
+    this.router.navigate(['/lista'])
+}
+
+}
+
 }

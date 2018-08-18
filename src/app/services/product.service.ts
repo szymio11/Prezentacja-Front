@@ -1,7 +1,7 @@
+import { ProductUpdate, Product } from './../model/product';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AppConfig } from '../../app.config';
-import { ProductUpdate, Product } from '../model/product';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 const httpOptions = {
@@ -43,8 +43,18 @@ export class ProductService {
     return this.http.get<Product[]>(this.config.apiUrl+'product')
       .pipe(
    
-           );
+           ); }
+  getByIdProduct(productId) {
+            return this.http.get<Product>(this.config.apiUrl+"product" + '/'+ productId)
+          }
+  updateProduct(productId,entity: ProductUpdate) {
+    console.log(entity)
+  
+    return this.http.put(this.config.apiUrl + "product" + '/' + productId,JSON.stringify(entity) ,httpOptions)
+      
   }
-
+  delete(productId){
+    return this.http.delete(this.config.apiUrl + "product" + '/' + productId)
+  }
 
 }

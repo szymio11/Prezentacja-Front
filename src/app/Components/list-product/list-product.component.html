@@ -6,7 +6,7 @@
       <th scope="col">Opis</th>
       <th scope="col">Kategoria</th>
       <th scope="col">Cena</th>
-      <th>Edit</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
@@ -14,11 +14,13 @@
       <td></td>
       <td>{{p.name}}</td>
       <td>{{ p.description}}</td>
-      <td>{{ p.category }}</td>
+      <td>{{ p.category.name }}</td>
       <td>{{ p.price }}</td>
       <td>
-        <a [routerLink]="['/edit/',p.id]">Edit</a>
+        <a class="btn btn-info mr-sm-1" [routerLink]="['',p.id]">Edytuj</a>
+        <a href="#" class="btn btn-danger">Usuń</a>
       </td>
+    
     </tr>
   </tbody>
 </table>

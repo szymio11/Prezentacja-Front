@@ -1,3 +1,4 @@
+import { Category } from './category';
 export class ProductUpdate{
 
     name:string="";
@@ -9,6 +10,6 @@ export class Product{
     id:string="";
     name:string="";
     description:string="";
-    category:string="";
+    category:Category;
     price: number;
 }
