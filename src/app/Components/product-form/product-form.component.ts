@@ -53,11 +53,29 @@ export class ProductFormComponent implements OnInit {
   }
   getCategories(): void {
     this.categoryService.getCategories()
-    .subscribe(categories => this.categories = categories);
+    .subscribe(
+      categories =>{ this.categories = categories},
+    (error:Response)=>{
+      if(error.status===404){
+        this.toastr.error('Nie ma żadnych kategori w bazie!');
+       }
+       else{
+        this.toastr.error('Wystąpił nie oczekiwany błąd!');
+       }
+    }
+  );
   }
   getProducts(): void{
     this.productService.getProducs()
-    .subscribe( products=>this.products=products
+    .subscribe( products=>{this.products=products},
+      (error:Response)=>{
+        if(error.status===404){
+          this.toastr.error('Nie ma żadnych produktów w bazie!');
+         }
+         else{
+          this.toastr.error('Wystąpił nie oczekiwany błąd!');
+         }
+      }
     )}
 
  get name(){
@@ -84,6 +102,18 @@ saveProduct(){
     this.router.navigate(['/lista']).then(()=>{
       this.toastr.info("Pomyślnie zaktualizowano produkt", "");
     });
+  },
+  (error:Response)=>{
+    if(error.status===404){
+      this.toastr.error('Nie ma żadnych kategori lub produktu w bazie!');
+     }
+     if (error.status===400) {
+      this.toastr.error('Validacja nie przeszła po stronie serwera!');
+    
+     } 
+     else{
+      this.toastr.error('Wystąpił nie oczekiwany błąd!');
+     }
   });
  
 
@@ -94,6 +124,18 @@ saveProduct(){
     this.router.navigate(['/lista']).then(()=>{
       this.toastr.success("Dodano produkt", "");
     });
+    },
+    (error:Response)=>{
+      if(error.status===404){
+        this.toastr.error('Nie ma żadnych kategori w bazie!');
+       }
+       if (error.status===400) {
+        this.toastr.error('Validacja nie przeszła po stronie serwera!');
+      
+       } 
+       else{
+        this.toastr.error('Wystąpił nie oczekiwany błąd!');
+       }
     });;
   
    

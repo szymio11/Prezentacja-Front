@@ -2,7 +2,6 @@ import { ProductService } from './../../services/product.service';
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../../model/product';
 import { ToastrService } from 'ngx-toastr';
-import { TruncateModule } from '@yellowspot/ng-truncate';
 @Component({
   selector: 'app-list-product',
   templateUrl: './list-product.component.html',
@@ -19,7 +18,15 @@ products: Product[];
   }
 getProducts(): void{
 this.productService.getProducs()
-.subscribe( products=>this.products=products
+.subscribe( products=>{this.products=products},
+ (error: Response) =>{
+   if(error.status===404){
+    this.toastr.error('Nie ma żadnych produktów w bazie!');
+   }
+   else{
+    this.toastr.error('Wystąpił nie oczekiwany błąd!');
+   }
+ }
 )
 
 }
@@ -30,7 +37,16 @@ delete(product: Product){
   {
     this.getProducts();
     
-  });
+  },
+ (error: Response) =>{
+   if(error.status===404){
+    this.toastr.error('Ten produkt został już usunięty!');
+   }
+   else{
+    this.toastr.error('Wystąpił nie oczekiwany błąd!');
+   }
+ }
+);
   this.toastr.success('Produkt został usunięty!')
  
 }

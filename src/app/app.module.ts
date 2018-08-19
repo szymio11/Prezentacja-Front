@@ -6,7 +6,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AppComponent } from './app.component';
 import { ProductFormComponent } from './Components/product-form/product-form.component';
 import { HomeComponent } from './Components/home/home.component';
-import { NavComponent } from './Components/nav/nav.component';
 import { ListProductComponent } from './Components/list-product/list-product.component';
 import { HttpModule } from '@angular/http';
 import { AppConfig } from '../app.config';
@@ -22,7 +21,6 @@ import { TruncateModule } from '@yellowspot/ng-truncate';
     AppComponent,
     ProductFormComponent,
     HomeComponent,
-    NavComponent,
     ListProductComponent,
     DetailsProductComponent
   ],
@@ -37,7 +35,7 @@ import { TruncateModule } from '@yellowspot/ng-truncate';
     BrowserAnimationsModule,
     ToastrModule.forRoot({
       timeOut:5000,
-      positionClass: 'toast-bottom-right',
+      positionClass: 'toast-top-right',
       preventDuplicates: true,
     }),
     RouterModule.forRoot([
