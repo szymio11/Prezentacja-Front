@@ -34,7 +34,7 @@ export class ProductFormComponent implements OnInit {
       this.productService.getByIdProduct(this.id).pipe(take(1)).subscribe(resp=> this.fillUpform(resp))
     }
   }
-
+  
   ngOnInit() {
    
     this.getCategories();
@@ -81,5 +81,10 @@ saveProduct(){
 }
 
 }
+delete(){
+  if(!confirm('Jesteś pewny, że chcesz usunąć ten przepis?'))return;
 
+  this.productService.delete(this.id).subscribe();
+  this.router.navigate(['/lista']);
+}
 }

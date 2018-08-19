@@ -17,8 +17,8 @@
       <td>{{ p.category.name }}</td>
       <td>{{ p.price }}</td>
       <td>
-        <a class="btn btn-info mr-sm-1" [routerLink]="['',p.id]">Edytuj</a>
-        <a href="#" class="btn btn-danger">Usuń</a>
+        <a class="btn btn-outline-info mr-sm-2" [routerLink]="['',p.id]">Edytuj</a>
+        <button type="button" class="btn btn-outline-danger" (click)="delete(p)" >Usuń</button>
       </td>
     
     </tr>

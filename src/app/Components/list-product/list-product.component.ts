@@ -2,9 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { ProductService } from './../../services/product.service';
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../../model/product';
-import { AppConfig } from '../../../app.config';
-import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-list-product',
@@ -13,6 +11,7 @@ import { tap } from 'rxjs/operators';
 })
 export class ListProductComponent implements OnInit {
 products: Product[];
+
   constructor(private productService: ProductService) { }
 
   ngOnInit() {
@@ -23,5 +22,10 @@ this.productService.getProducs()
 .subscribe( products=>this.products=products
 )
 
+}
+delete(product: Product){
+  if(!confirm('Jesteś pewny, że chcesz usunąć ten przepis?'))return;
+
+  this.productService.delete(product.id).subscribe();
 }
 }
