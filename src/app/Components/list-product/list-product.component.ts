@@ -1,9 +1,8 @@
-import { HttpClient } from '@angular/common/http';
 import { ProductService } from './../../services/product.service';
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../../model/product';
 import { ToastrService } from 'ngx-toastr';
-import { ActivatedRoute, Router } from '@angular/router';
+import { TruncateModule } from '@yellowspot/ng-truncate';
 @Component({
   selector: 'app-list-product',
   templateUrl: './list-product.component.html',

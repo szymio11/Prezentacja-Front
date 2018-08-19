@@ -1,3 +1,5 @@
+
+<a class="btn btn-primary mb-sm-2 mt-sm-3"  routerLink="/dodaj">Dodaj Produkt</a>
 <table class="table">
   <thead class="thead-dark">
     <tr>
@@ -13,10 +15,11 @@
     <tr *ngFor="let p of products">
       <td></td>
       <td>{{p.name}}</td>
-      <td>{{ p.description}}</td>
+      <td>{{ p.description |  truncate : 10}}</td>
       <td>{{ p.category.name }}</td>
       <td>{{ p.price }}</td>
       <td>
+        <a class="btn btn-outline-secondary mr-sm-2" [routerLink]="['/detale/',p.id]">Więcej</a>
         <a class="btn btn-outline-info mr-sm-2" [routerLink]="['',p.id]">Edytuj</a>
         <button type="button" class="btn btn-outline-danger" (click)="delete(p)" >Usuń</button>
       </td>

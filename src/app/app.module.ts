@@ -15,6 +15,7 @@ import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { DetailsProductComponent } from './Components/details-product/details-product.component';
+import { TruncateModule } from '@yellowspot/ng-truncate';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { DetailsProductComponent } from './Components/details-product/details-pr
     DetailsProductComponent
   ],
   imports: [
+    TruncateModule,
     HttpModule,
     FormsModule,
     HttpClientModule,
@@ -41,7 +43,7 @@ import { DetailsProductComponent } from './Components/details-product/details-pr
     RouterModule.forRoot([
      { 
       path: '',
-      component: HomeComponent
+      component: ListProductComponent
       },
      { 
       path: 'dodaj',
@@ -54,7 +56,11 @@ import { DetailsProductComponent } from './Components/details-product/details-pr
     { 
      path: ':id',
      component: ProductFormComponent
-   }
+   },  
+   { 
+    path: 'detale/:id',
+    component: DetailsProductComponent
+  }
     ])
   ],
   providers: [

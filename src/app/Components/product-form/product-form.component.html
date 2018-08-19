@@ -5,8 +5,7 @@
       
       <form [formGroup]="form" (ngSubmit)="saveProduct()">
               <div class="form-group">
-                        <p>Form value: {{ form.value | json }}</p>
-                        
+                                                
               <label for="name">Nazwa</label>
                       <input 
                       formControlName="name"
@@ -58,6 +57,7 @@
                       class="form-control"
                       type="textarea" />
               </div>
+              <a  class="btn btn-outline-primary mr-sm-2" [routerLink]="['/lista']">Powrót</a>
               <button type="submit" [disabled]="form.invalid" class="btn btn-primary" >Zapisz</button>
       </form>
     </div>   
