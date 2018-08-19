@@ -1,3 +1,4 @@
+import { ListProductComponent } from './../list-product/list-product.component';
 import { ProductUpdate, Product } from './../../model/product';
 import { Category } from './../../model/category';
 import { CategoryService } from './../../services/category.service';
@@ -6,7 +7,8 @@ import { ProductService } from '../../services/product.service';
 import {  Validators  } from '@angular/forms';
 import {  FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { take } from 'rxjs/operators';
+import { take, throttle } from 'rxjs/operators';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-product-form',
@@ -17,11 +19,13 @@ import { take } from 'rxjs/operators';
 export class ProductFormComponent implements OnInit {
   product: ProductUpdate;
   categories: Category[];
+  products: Product[];
   form;
   id;
 
-  constructor(private router: Router,
+  constructor( private router: Router,
     private route: ActivatedRoute,
+    private toastr: ToastrService,
     private fb: FormBuilder,private categoryService: CategoryService, private productService: ProductService) { 
    this.form = fb.group({
       name: ['',Validators.required],
@@ -51,6 +55,11 @@ export class ProductFormComponent implements OnInit {
     this.categoryService.getCategories()
     .subscribe(categories => this.categories = categories);
   }
+  getProducts(): void{
+    this.productService.getProducs()
+    .subscribe( products=>this.products=products
+    )}
+
  get name(){
   return this.form.get('name');
 }
@@ -70,21 +79,27 @@ fillUpform(entity: Product){
 //Save product
 saveProduct(){
 
-  if(this.id) this.productService.updateProduct(this.id,this.form.value).subscribe(resp=>{
-    console.log(resp);
+  if(this.id){ this.productService.updateProduct(this.id,this.form.value).subscribe(resp=>{
+   
+    this.router.navigate(['/lista']).then(()=>{
+      this.toastr.info("Pomyślnie zaktualizowano produkt", "");
+    });
   });
+ 
+
+}
   else{
-  let isValid = this.productService.addProduct(this.form.value).subscribe(resp => {   
-    });;
+   this.productService.addProduct(this.form.value).subscribe(resp => { 
     console.log(this.form.value)
-    this.router.navigate(['/lista'])
+    this.router.navigate(['/lista']).then(()=>{
+      this.toastr.success("Dodano produkt", "");
+    });
+    });;
+  
+   
+    
 }
 
 }
-delete(){
-  if(!confirm('Jesteś pewny, że chcesz usunąć ten przepis?'))return;
 
-  this.productService.delete(this.id).subscribe();
-  this.router.navigate(['/lista']);
-}
 }

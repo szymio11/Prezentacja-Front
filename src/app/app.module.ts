@@ -12,6 +12,9 @@ import { HttpModule } from '@angular/http';
 import { AppConfig } from '../app.config';
 import { HttpClientModule } from '@angular/common/http'
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { DetailsProductComponent } from './Components/details-product/details-product.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +22,8 @@ import { FormsModule, ReactiveFormsModule} from '@angular/forms';
     ProductFormComponent,
     HomeComponent,
     NavComponent,
-    ListProductComponent
+    ListProductComponent,
+    DetailsProductComponent
   ],
   imports: [
     HttpModule,
@@ -28,6 +32,12 @@ import { FormsModule, ReactiveFormsModule} from '@angular/forms';
     BrowserModule,
     ReactiveFormsModule,
     NgbModule.forRoot(),
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut:5000,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+    }),
     RouterModule.forRoot([
      { 
       path: '',
