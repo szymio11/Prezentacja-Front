@@ -7,7 +7,7 @@ import { ProductService } from '../../services/product.service';
 import {  Validators  } from '@angular/forms';
 import {  FormBuilder } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { take } from 'rxjs/operators';
+import { take, catchError } from 'rxjs/operators';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -31,6 +31,7 @@ export class ProductFormComponent implements OnInit {
       name: ['',Validators.required],
       description: ['',Validators.required],
       categoryId:['',Validators.required],
+      category:[],
       price:[]
     })
     this.id = this.route.snapshot.paramMap.get('id');
@@ -87,7 +88,10 @@ get description(){
 get category(){
   return this.form.get('categoryId');
 }
-fillUpform(entity: Product){
+ changeValueCategory(){
+ this.form.value.category = this.form.value.categoryId;
+}
+ fillUpform(entity: Product){
   this.form.get('name').setValue(entity.name);
   this.form.get('description').setValue(entity.description);
   this.form.get('categoryId').setValue(entity.category.id);
@@ -96,7 +100,7 @@ fillUpform(entity: Product){
 }
 //Save product
 saveProduct(){
-
+  this.changeValueCategory()
   if(this.id){ this.productService.updateProduct(this.id,this.form.value).subscribe(resp=>{
    
     this.router.navigate(['/lista']).then(()=>{

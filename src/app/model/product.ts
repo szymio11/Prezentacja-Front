@@ -3,7 +3,7 @@ export class ProductUpdate{
 
     name:string="";
     description:string="";
-    categoryId:string="";
+    category:string="";
     price: number;
 }
 export class Product{

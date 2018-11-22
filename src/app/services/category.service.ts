@@ -14,7 +14,7 @@ export class CategoryService {
   
   
   getCategories():Observable<Category[]>{
-    return this.http.get<Category[]>(this.config.apiUrl+'categories').pipe(
+    return this.http.get<Category[]>(this.config.apiUrl+'category').pipe(
       tap(category => console.log('fetched categories')),
     );
   }
