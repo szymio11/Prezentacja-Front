@@ -4,7 +4,6 @@
       <h3 *ngIf="setCategory()"  class="text-cente p-3">Edycja produktu </h3>
       
       <form [formGroup]="form" (ngSubmit)="saveProduct()">
-                    <pre>{{form.value | json}}</pre>
               <div class="form-group">
                             
               <label for="name">Nazwa</label>
