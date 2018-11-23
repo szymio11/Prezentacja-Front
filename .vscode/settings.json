@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/f2b4c072-b1b6-49d8-9aa1-17e0516704e2/resourceGroups/signalrang/providers/Microsoft.Web/sites/signalrang",
+    "appService.deploySubpath": ""
+}
