@@ -1,3 +1,3 @@
 export class AppConfig {
-    public readonly apiUrl = 'http://aspnetapi.azurewebsites.net/api/';
+    public readonly apiUrl = 'https://aspnetapi.azurewebsites.net/api/';
 };
