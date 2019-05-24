@@ -1,11 +1,19 @@
 <div class="card text-center">
+    <a class="btn btn-outline-primary mr-sm-2" (click)="runStream()"
+    >Wygeneruj liczby</a>
   <div class="card-header">Produkt</div>
   <div class="card-body">
-    <h5 class="card-title">{{ product.name }}</h5>
-    <p class="card-text">{{ product.description }}</p>
+    <h5 class="card-title">{{ product?.name }}</h5>
+    <p class="card-text">{{ product?.description }}</p>
     <a class="btn btn-outline-primary mr-sm-2" [routerLink]="['/lista']"
       >Powrót</a
     >
-    <a class="btn btn-outline-info " [routerLink]="['', product.id]">Edytuj</a>
+
+    <a class="btn btn-outline-info " [routerLink]="['', product?.id]">Edytuj</a>
   </div>
+  <div *ngFor="let item of items">
+    <div>
+      {{item}}
+    </div>
+  </div> 
 </div>

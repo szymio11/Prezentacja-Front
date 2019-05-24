@@ -1,3 +1,4 @@
+import { AppConfig } from './../../../app.config';
 import { ProductService } from "./../../services/product.service";
 import { Component, OnInit } from "@angular/core";
 import { Product } from "../../model/product";
@@ -15,25 +16,29 @@ export class ListProductComponent implements OnInit {
   public async: any;
   constructor(
     private toastr: ToastrService,
-    private productService: ProductService
+    private productService: ProductService,
+    private appConfig: AppConfig
   ) {}
 
   ngOnInit() {
     this.getProducts();
     this._hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl("https://localhost:5001/hub")
-      .configureLogging(signalR.LogLevel.Trace)
+      .withUrl(this.appConfig.url + "hub")
+      .configureLogging(signalR.LogLevel.Trace)     
       .build();
-
+    
     this._hubConnection.stop();
 
     this._hubConnection.start().catch(err => {
       console.error(err.toString());
     });
 
-    this._hubConnection.on("Notification", (data: any) => {
-      console.log(data);
+    this._hubConnection.on("NotificationCreate", (data: any) => {
       this.products.push(data);
+    });
+    this._hubConnection.on("NotificationRemove", (data: any) => {
+      let productToRemove = this.products.find(a => a.id == data.id);
+      this.products = this.products.filter(obj => obj !== productToRemove);
     });
   }
 
@@ -65,8 +70,8 @@ export class ListProductComponent implements OnInit {
         } else {
           this.toastr.error("Wystąpił nie oczekiwany błąd!");
         }
+        this.toastr.success("Produkt został usunięty!");
       }
     );
-    this.toastr.success("Produkt został usunięty!");
   }
 }
