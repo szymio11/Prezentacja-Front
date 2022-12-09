@@ -24,7 +24,7 @@
     "@ng-bootstrap/ng-bootstrap": "^3.0.0",
     "@yellowspot/ng-truncate": "^1.4.0",
     "core-js": "^2.5.4",
-    "express": "^4.16.4",
+    "express": "^4.17.3",
     "msgpack5": "^4.2.1",
     "ngx-toastr": "^9.0.2",
     "rxjs": "^6.0.0",
